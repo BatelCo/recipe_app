@@ -24,3 +24,17 @@ def insert_ingredients(ingredients_arr, table_name, field_name):
     except TypeError as e:
         print(e)
 
+def get_ingredients(table_name):
+    try:
+        with connection.cursor() as cursor:
+            query = f"SELECT * FROM {table_name};"
+            cursor.execute(query)
+            connection.commit()
+            results = cursor.fetchall()
+            ingredient = []
+            for res in results:
+                ingredient.append(res["name"])
+            return (ingredient)
+    except TypeError as e:
+        print(e)
+
