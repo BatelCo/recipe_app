@@ -38,3 +38,50 @@ def get_ingredients(table_name):
     except TypeError as e:
         print(e)
 
+def filter_recipe(ingredients,diary_free ,gluten_free):
+    is_filter_dairy = True
+    is_filter_gluten = True
+    if diary_free:
+        is_filter_dairy = filter_dairy(ingredients)
+    if gluten_free:
+        is_filter_gluten = filter_gluten(ingredients)
+    if(is_filter_dairy and is_filter_gluten):
+        return True
+    return False
+    
+
+def filter_dairy(ingredients):
+    ingredient = []
+    for i in ingredients:
+        try:
+            with connection.cursor() as cursor:
+                query = "SELECT * FROM dairy_ingredients d WHERE d.dairy_name=%s;"
+                cursor.execute(query, i)
+                connection.commit()
+                results = cursor.fetchall()
+                if len(results) != 0:
+                    ingredient.append(results)
+        except TypeError as e:
+            print(e)
+        
+    if len(ingredient) == 0:
+        return True
+    return False
+
+def filter_gluten(ingredients):
+    ingredient = []
+    for i in ingredients:
+        try:
+            with connection.cursor() as cursor:
+                query = "SELECT * FROM gluten_ingredients d WHERE d.gluten_name=%s;"
+                cursor.execute(query,i)
+                connection.commit()
+                results = cursor.fetchall()
+                if len(results) != 0:
+                    ingredient.append(results)
+        except TypeError as e:
+            print(e)
+        
+    if len(ingredient) == 0:
+        return True
+    return False
