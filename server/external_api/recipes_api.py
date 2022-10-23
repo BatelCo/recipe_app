@@ -10,20 +10,21 @@ class RecipesApi(Api):
         self.headers = {"Content-Type": "application/json"}
         self.diary_free = diary_free
         self.gluten_free = gluten_free
+        print(diary_free, gluten_free)
 
 
     def proccess_data(self):
         results=[]
+        
         results+=[{
             "title": meal["title"],
             "ingredients": meal["ingredients"],
             "img": meal["thumbnail"],
             "href": meal["href"]
             }
-            for meal in self.raw_data["results"]]
-         
-        print(results)
+            for meal in self.raw_data["results"] if ]
         self.proccessed_data = results
+
         return results
 
 
