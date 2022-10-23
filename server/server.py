@@ -14,10 +14,10 @@ def sanity():
     return "sanity check"
 
 @app.get('/recipes/{ingredient}')
-def get_recipes(response: Response, ingredient, is_diary, is_gluten):
+def get_recipes(response: Response, ingredient, diaryFree, glutenFree):
     global caching_metadata
     response.headers['Access-Control-Allow-Origin'] = "*"
-    caching_metadata = RecipesApi(ingredient, is_diary, is_gluten).get_data().proccess_data()
+    caching_metadata = RecipesApi(ingredient,diaryFree, glutenFree).get_data().proccess_data()
     print (caching_metadata)
     return caching_metadata
 
