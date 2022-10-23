@@ -6,7 +6,7 @@ const RecipeModel = function () {
 		return cacheData
 	}
 
-	function initData(ingridient = "cheese", diaryFree = false, glutenFree = false) {
+	function initData(ingridient, diaryFree, glutenFree) {
 		recipeMetaInstance = new MetaDataApi(ingridient, diaryFree, glutenFree)
 	}
 
@@ -14,8 +14,6 @@ const RecipeModel = function () {
 		let promise =  recipeMetaInstance.getData()
 		return await Promise.all([promise]).then(function (results) {
 			cacheData = results[0]
-			console.log("recipemodel")
-			console.log(cacheData)
 			return { metaData: results[0] }
 		})
 	}
