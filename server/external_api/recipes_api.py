@@ -1,5 +1,7 @@
 from statistics import mean
+from xmlrpc.client import FastMarshaller
 from .api import Api
+from database.db_manager import filter_recipe 
 
 class RecipesApi(Api):
 
@@ -22,13 +24,20 @@ class RecipesApi(Api):
             "img": meal["thumbnail"],
             "href": meal["href"]
             }
-            for meal in self.raw_data["results"] if ]
+            for meal in self.raw_data["results"] if self.filtered_recipes(meal["ingredients"])]
         self.proccessed_data = results
 
         return results
 
-
-
+    def filtered_recipes(self, ingredients):
+        if not bool(self.diary_free) and not bool(self.gluten_free):
+            return True
+        elif bool(self.diary_free) and bool(self.gluten_free):
+            return filter_recipe(ingredients, True, True)
+        elif bool(self.diary_free) and not bool(self.gluten_free):
+            return filter_recipe(ingredients, True, False)
+        else :
+            return filter_recipe(ingredients, False, True)    
 
 
 
