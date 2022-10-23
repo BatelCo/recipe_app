@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="shortcut icon" href="#" />
+		<title>mid evaluation</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
+
+		<script id="recipe-template" type="text/x-handlebars-template">
+			{{#each recipeData}}
+				<div class="item">
+					<div class="img" >
+						<img src = {{this.img}} >
+					</div>
+					<div class="title">
+						{{this.title}}
+					</div>
+					<h2> ingredients:</h2>
+						<ul>
+							{{#each this.ingredients}}
+								<h3>{{this}}</h2>
+							{{/each}}
+						</ul>
+				</div>
+			{{/each}}
+		</script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="text-input">
+				<input type="checkbox" id="diary-free" name="Diary Free" value="Diary">
+  				<label for="vehicle1">Diary Free</label><br>
+  				<input type="checkbox" id="gluten-free" name="Gluten Free" value="Gluten">
+  				<label for="Gluten Free">Gluten Free</label><br>
+				<input id="ingredient" type="text" placeholder="ingredient"/>
+			</div>
+			<button id="submit" class="glow-on-hover">search recipe</button>
+			
+       <div>
+        
+		<div id="results"></div>
+
+		<script src="./src/my_app_api/ajax_call.js"></script>
+		<script src="./src/my_app_api/api.js"></script>
+		<script src="./src/my_app_api/metadataApi.js"></script>
+		<script src="./src/recipeView.js"></script>
+		<script src="./src/recipeModel.js"></script>
+		<script src="./src/recipeController.js"></script>
+	</body>
+</html>
