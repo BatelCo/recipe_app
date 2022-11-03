@@ -17,7 +17,7 @@ def sanity():
 def get_recipes(response: Response, ingredient, diaryFree, glutenFree):
     global caching_metadata
     response.headers['Access-Control-Allow-Origin'] = "*"
-    caching_metadata = RecipesApi(ingredient,diaryFree, glutenFree).get_data().proccess_data()
+    caching_metadata = RecipesApi(ingredient, diaryFree, glutenFree).get_data().proccess_data()
     return caching_metadata
 
 

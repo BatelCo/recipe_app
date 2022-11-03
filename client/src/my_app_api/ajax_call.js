@@ -1,13 +1,12 @@
 class AjaxCall {
-	async getApi(url, method = "GET", data = { "data": "empty" }) {
-		return await $.ajax({
-			url: url,
+	async getApi(url, method = "GET", payload = "", resourcses = "") {
+		let ajaxData = {
+			url: url + resourcses,
+			data: payload,
 			success: (result) => result,
 			error: (result) => "error",
 			type: method,
-			dataType: "json",
-			data: JSON.stringify(data),
-			contentType: "application/json",
-		})
+		}
+		return await $.ajax(ajaxData)
 	}
 }

@@ -26,10 +26,10 @@ const inputClear = function(){
 
 $("#submit").on("click", function () {
 	const ingredient = $("#ingredient").val()
-	const glutenFree = $("#gluten-free").is(":checked")
 	const dairyFree = $("#diary-free").is(":checked")
+	const glutenFree = $("#gluten-free").is(":checked")
 	if (ingredient != "") {
-		model.initData(ingredient, glutenFree, dairyFree)
+		model.initData(ingredient, dairyFree, glutenFree)
 		generateData()
 	} else console.warn("no input")
 	inputClear()

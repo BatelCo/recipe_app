@@ -38,50 +38,25 @@ def get_ingredients(table_name):
     except TypeError as e:
         print(e)
 
-def filter_recipe(ingredients,diary_free ,gluten_free):
-    is_filter_dairy = True
-    is_filter_gluten = True
+def recipe_valid(ingredients, diary_free ,gluten_free):
     if diary_free:
-        is_filter_dairy = filter_dairy(ingredients)
+        if ingredients_exist_in_table(ingredients,"dairy_ingredients", "dairy_name"):
+            return False
     if gluten_free:
-        is_filter_gluten = filter_gluten(ingredients)
-    if(is_filter_dairy and is_filter_gluten):
-        return True
-    return False
+        if ingredients_exist_in_table(ingredients, "gluten_ingredients", "gluten_name"):
+            return False
+    return True
     
-
-def filter_dairy(ingredients):
-    ingredient = []
+def ingredients_exist_in_table(ingredients, table_name, column_name):
     for i in ingredients:
         try:
             with connection.cursor() as cursor:
-                query = "SELECT * FROM dairy_ingredients d WHERE d.dairy_name=%s;"
+                query = f"SELECT * FROM {table_name} d WHERE d.{column_name}=%s;"
                 cursor.execute(query, i)
                 connection.commit()
-                results = cursor.fetchall()
-                if len(results) != 0:
-                    ingredient.append(results)
+                items_found = cursor.fetchall()
+                if len(items_found) != 0:
+                    return True
         except TypeError as e:
-            print(e)
-        
-    if len(ingredient) == 0:
-        return True
-    return False
-
-def filter_gluten(ingredients):
-    ingredient = []
-    for i in ingredients:
-        try:
-            with connection.cursor() as cursor:
-                query = "SELECT * FROM gluten_ingredients d WHERE d.gluten_name=%s;"
-                cursor.execute(query,i)
-                connection.commit()
-                results = cursor.fetchall()
-                if len(results) != 0:
-                    ingredient.append(results)
-        except TypeError as e:
-            print(e)
-        
-    if len(ingredient) == 0:
-        return True
+            print(e)    
     return False

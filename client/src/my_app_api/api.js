@@ -10,9 +10,9 @@ class Api {
 		this.method = method
 	}
 
-	async callApi(attempts = 0, data = { "data": "empty" }) {
-		return await this.callerInteface.getApi(this.url, this.method, data).catch((error) => {
-			this.errorHandeler(this.callApi, attempts, data)
+	async callApi(attempts = 0) {
+		return await this.callerInteface.getApi(this.url, this.method, this.data).catch((error) => {
+			this.errorHandeler(this.callApi, attempts)
 		})
 	}
 
